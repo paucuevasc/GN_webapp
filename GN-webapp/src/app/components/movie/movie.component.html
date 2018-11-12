@@ -12,13 +12,13 @@
                     {{ result.Year }}
                 </p>
                 <div class="fav-button">
-                    <img *ngIf='result.favorite' src="assets/img/plus-box.png" (click)=toFavorites(result)>
-                    <img *ngIf='!result.favorite' src="assets/img/plus.png" (click)=toFavorites(result)>
+                    <img *ngIf='result.favorite' src="assets/img/plus-box.png" (click)="toList(result)">
+                    <img *ngIf='!result.favorite' src="assets/img/plus.png" (click)="toList(result)">
                 </div>
             </div>
         </div>
     </div>
-    <div>
+    <div *ngIf='searchMoreOption' id="searchMoreButton">
         <button type="button" (click)="searchMore()">
             <img src="assets/img/plus.png">
             </button>

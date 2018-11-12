@@ -5,36 +5,27 @@ import { CounterService } from '../../shared/counter.service';
 
 import { Subscription } from 'rxjs/Subscription';
 
-export class Message {
-  artistId: number;
-  selectedArtist: string;
-  selectionMade: boolean;
-
-  constructor(artistId: number, selectedArtist: string, selectionMade: boolean) {
-    this.artistId = artistId;
-    this.selectedArtist = selectedArtist;
-    this.selectionMade = selectionMade;
-  }
-}
 
 @Component({
-  selector: 'app-song',
-  templateUrl: './song.component.html',
+  selector: 'app-movie',
+  templateUrl: './movie.component.html',
   providers: [OmdbService],
-  styleUrls: ['./song.component.scss']
+  styleUrls: ['./movie.component.scss']
 })
-export class SongComponent {
-receivedMessage: Message;
+export class MovieComponent {
+
 selectionMade = false;
 subscription: Subscription;
 title: string;
 year: string;
 poster: string;
 favCount: number;
+list = [];
 Results;
 searchResults;
 searchPage = 1;
 searchWord;
+searchMoreOption = false;
 
 
   constructor(private omdbService: OmdbService,
@@ -43,6 +34,7 @@ searchWord;
                 this.subscription =
                 this.displayService.getMessage().subscribe((message) => {
                   this.selectionMade = message[1];
+                  this.searchMoreOption = message[3];
 
                   if (this.selectionMade === false ) {
                     this.Results = message[0];
@@ -57,15 +49,14 @@ searchWord;
                 }
                 });
                }
-songResults = [];
+
 
 
 searchMore() {
 
   this.searchPage++;
-  debugger;
+
   this.omdbService.search(this.searchPage, this.searchWord).then(results => {
-    debugger;
     this.searchResults = results;
     console.log(results);
     for (let i = 0; i < this.searchResults.length; i++) {
@@ -76,10 +67,14 @@ searchMore() {
   });
 }
 
-  toFavorites(result) {
+  toList(result) {
+    debugger;
     result.favorite = !result.favorite;
     if (result.favorite === true) {
         this.favCount = 1;
+        debugger;
+        this.list.push(result);
+        console.log(this.list);
     } else {
       this.favCount = -1;
     }

@@ -21,6 +21,7 @@ export class NavbarComponent {
 favCounter = 0;
 subscription: Subscription;
 searchWord;
+searchMoreOption: boolean;
 selectionMade = false;
 
   constructor(private omdbService: OmdbService,
@@ -46,7 +47,8 @@ selectionMade = false;
     });
   }
   showResults() {
-    const message = [this.searchResults, this.selectionMade, this.searchWord];
+    this.searchMoreOption = true;
+    const message = [this.searchResults, this.selectionMade, this.searchWord, this.searchMoreOption];
     console.log( message );
     this.displayService.sendMessage( message );
 

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { OmdbService } from './shared/omdb.service';
-import { SongComponent } from './components/song/song.component';
+import { MovieComponent } from './components/movie/movie.component';
 import { HttpClient } from 'selenium-webdriver/http';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { HttpClient } from 'selenium-webdriver/http';
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    SongComponent
+    MovieComponent
   ],
   imports: [
     BrowserModule,
