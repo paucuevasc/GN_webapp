@@ -1,0 +1,26 @@
+<div *ngIf='selectionMade' id="songs-container">
+    <div *ngFor='let result of Results' class="movie">
+        <div class="movie-element-container">
+            <div class="img-container">
+                <img class="album-art" src="{{ result.Poster }}">
+            </div>
+            <div class="text-content">
+                <p class="song-name">
+                    {{ result.Title }}
+                </p>
+                <p class="album-name">
+                    {{ result.Year }}
+                </p>
+                <div class="fav-button">
+                    <img *ngIf='result.favorite' src="assets/img/plus-box.png" (click)=toFavorites(result)>
+                    <img *ngIf='!result.favorite' src="assets/img/plus.png" (click)=toFavorites(result)>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button type="button" (click)="searchMore()">
+            <img src="assets/img/plus.png">
+            </button>
+    </div>
+</div>

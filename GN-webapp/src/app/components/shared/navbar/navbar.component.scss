@@ -1,0 +1,49 @@
+#navbar-container {
+    background-color: #137d83;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+#navbar-brand {
+    margin-top: 10px;
+    flex: 0 0 150px;
+}
+
+#navbar-content {
+    flex: 0 0 150px;
+}
+
+#counter-container {
+    background-image: url(/assets/img/fav_counter_backg.png);
+    width: 45px;
+    height: 45px;
+    flex: 0 0 45px;
+}
+
+#counter {
+    border-radius: 50%;
+    /* remove if you don't care about IE8 */
+    width: 10px;
+    height: 10px;
+    padding: 1px;
+    background: #dde9ea;
+    border: 2px solid #137d83;
+    color: #666;
+    text-align: center;
+    font: 10px Arial, sans-serif;
+    float: right;
+    margin-top: 2px;
+}
+
+#searchbox-container {
+    height: 100%;
+    width: 30%;
+}
+
+#searchbox {
+    margin-top: 5px;
+    height: 60%;
+}

@@ -1,0 +1,22 @@
+<nav id="navbar-container">
+    <a id="navbar-brand" href="#">
+        <img src="assets/img/gesture-tap.png" width="30" height="30" alt="">
+    </a>
+
+
+
+
+    <div id="navbar-content">
+
+        <div id="searchbox-container">
+            <input id="searchbox" type="text" placeholder="SEARCH" #searchBox (keyup.enter)="search(1,searchBox.value)" aria-label="Search">
+        </div>
+    </div>
+
+    <div id="counter-container">
+        <p id="counter">
+            {{this.favCounter}}
+        </p>
+    </div>
+
+</nav>
