@@ -1,5 +1,5 @@
 <div *ngIf='selectionMade' id="songs-container">
-    <div *ngFor='let result of Results' class="movie">
+    <div *ngFor='let result of results' class="movie">
         <div class="movie-element-container">
             <div class="img-container">
                 <img *ngIf="result.Poster != 'N/A'" class="album-art" src="{{ result.Poster }}">
@@ -13,8 +13,8 @@
                     {{ result.Year }}
                 </p>
                 <div class="fav-button">
-                    <img *ngIf='result.favorite' src="assets/img/plus-box.png" (click)="toList(result)">
-                    <img *ngIf='!result.favorite' src="assets/img/plus.png" (click)="toList(result)">
+                    <img *ngIf='result.inList' src="assets/img/plus-box.png" (click)="toList(result)">
+                    <img *ngIf='!result.inList' src="assets/img/plus.png" (click)="toList(result)">
                 </div>
             </div>
         </div>

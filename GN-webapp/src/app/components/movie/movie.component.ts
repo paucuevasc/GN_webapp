@@ -2,35 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OmdbService } from '../../shared/omdb.service';
 import { DisplayService } from '../../shared/display.service';
 import { CounterService } from '../../shared/counter.service';
+import { ListService } from '../../shared/list.service';
 import { Subscription } from 'rxjs/Subscription';
+import { ListItem, List, Result } from '../shared/models';
 
 
-export class ListComponent {
-  title: string;
-  year: string;
-  poster: string;
-  constructor(title: string, year: string, poster: string) {
-    this.title = title;
-    this.year = year;
-    this.poster = poster;
-  }}
 
-export class List {
-  movies: Array<ListComponent>;
-  addMovie(movie) {
-    this.movies.push(movie);
-  }
-  deleteMovie(movieName) {
-    for (let i = 0; i < this.movies.length; i++ ) {
-      if (movieName === this.movies[i].title) {
-        this.movies.splice(i, 1);
-      }
-    }
-  }
-  constructor (movies: Array<ListComponent>) {
-    this.movies = [];
-  }
-}
 
 @Component({
   selector: 'app-movie',
@@ -44,43 +21,41 @@ export class List {
 export class MovieComponent {
 
 selectionMade = false;
-subscription: Subscription;
+displaySubscription: Subscription;
+listSubscription: Subscription;
 title: string;
 year: string;
 poster: string;
 favCount: number;
 list = new List([]);
-Results;
+results: Array<Result>;
 searchResults;
 searchPage = 1;
 searchWord;
 searchMoreOption = false;
-
+displayMode;
 
   constructor(private omdbService: OmdbService,
               private counterService: CounterService,
-              private displayService: DisplayService) {
-                this.subscription =
+              private displayService: DisplayService,
+              private listService: ListService) {
+                this.displaySubscription =
                 this.displayService.getMessage().subscribe((message) => {
-                  this.selectionMade = message[1];
-                  this.searchMoreOption = message[3];
-
-                  if (this.selectionMade === false ) {
-                    this.Results = message[0];
-                  console.log( this.Results );
-
-                  if ( this.Results ) {
-                  this.selectionMade = true;
-                  this.searchWord = message[2];
-                }
-                } else {
-                    this.Results = this.Results + message[0];
-                }
+                  this.displaySubs(message);
                 });
                }
 
-
-
+displaySubs(message) {
+  this.selectionMade = message[1];
+  this.displayMode = message[4];
+  this.searchMoreOption = message[3];
+  if (this.displayMode === 'searchWiev') {
+    this.displaySearch(message);
+  }
+  if (this.displayMode === 'listWiev') {
+    this.displayList();
+}
+}
 searchMore() {
 
   this.searchPage++;
@@ -89,27 +64,58 @@ searchMore() {
     this.searchResults = results;
     console.log(results);
     for (let i = 0; i < this.searchResults.length; i++) {
-      this.Results.push(this.searchResults[i]);
+      this.results.push(this.searchResults[i]);
     }
-    console.log(this.Results);
+    console.log(this.results);
     this.selectionMade = true;
   });
 }
 
   toList(result) {
-    result.favorite = !result.favorite;
-    if (result.favorite === true) {
+    result.inList = !result.inList;
+    if (result.inList === true) {
         this.favCount = 1;
-        const movie = new ListComponent (result.Title, result.Year, result.Poster);
+        const movie = new ListItem (result.Title, result.Year, result.Poster, result.imdbID);
         this.list.addMovie(movie);
         console.log(this.list);
+        this.listService.sendList(this.list);
     } else {
       this.favCount = -1;
       this.list.deleteMovie(result.Title);
       console.log(this.list);
+      this.listService.sendList(this.list);
     }
     this.counterService.sendFavCount( this.favCount );
   }
+
+  displaySearch(message) {
+    if (this.selectionMade === false ) {
+      this.results = message[0];
+    console.log( this.results );
+    if ( this.results ) {
+    this.selectionMade = true;
+    this.searchWord = message[2];
+  }
+  } else {
+      this.results = this.results + message[0];
+  }
+  for (let i = 0; i < this.results.length; i++) {
+    for (let j = 0; j < this.list.movies.length; j++) {
+      if (this.results[i].imdbID === this.list.movies[j].imdbID) {
+        this.results[i].inList = true;
+      }
+  }
+}
+  }
+  displayList() {
+    this.results = [];
+    for (let i = 0; i < this.list.movies.length; i++) {
+      const result = new Result(this.list.movies[i].poster, this.list.movies[i].title, '', this.list.movies[i].year, '', true);
+      this.results.push(result);
+  }
+  this.selectionMade = true;
+  console.log(this.results);
+
 }
 
-
+}
