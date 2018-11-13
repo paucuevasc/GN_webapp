@@ -2,7 +2,8 @@
     <div *ngFor='let result of Results' class="movie">
         <div class="movie-element-container">
             <div class="img-container">
-                <img class="album-art" src="{{ result.Poster }}">
+                <img *ngIf="result.Poster != 'N/A'" class="album-art" src="{{ result.Poster }}">
+                <img *ngIf="result.Poster == 'N/A'" class="album-art" src=" assets/img/notFound.png ">
             </div>
             <div class="text-content">
                 <p class="song-name">

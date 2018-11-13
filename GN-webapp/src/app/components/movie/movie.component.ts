@@ -2,9 +2,35 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OmdbService } from '../../shared/omdb.service';
 import { DisplayService } from '../../shared/display.service';
 import { CounterService } from '../../shared/counter.service';
-
 import { Subscription } from 'rxjs/Subscription';
 
+
+export class ListComponent {
+  title: string;
+  year: string;
+  poster: string;
+  constructor(title: string, year: string, poster: string) {
+    this.title = title;
+    this.year = year;
+    this.poster = poster;
+  }}
+
+export class List {
+  movies: Array<ListComponent>;
+  addMovie(movie) {
+    this.movies.push(movie);
+  }
+  deleteMovie(movieName) {
+    for (let i = 0; i < this.movies.length; i++ ) {
+      if (movieName === this.movies[i].title) {
+        this.movies.splice(i, 1);
+      }
+    }
+  }
+  constructor (movies: Array<ListComponent>) {
+    this.movies = [];
+  }
+}
 
 @Component({
   selector: 'app-movie',
@@ -12,6 +38,9 @@ import { Subscription } from 'rxjs/Subscription';
   providers: [OmdbService],
   styleUrls: ['./movie.component.scss']
 })
+
+
+
 export class MovieComponent {
 
 selectionMade = false;
@@ -20,7 +49,7 @@ title: string;
 year: string;
 poster: string;
 favCount: number;
-list = [];
+list = new List([]);
 Results;
 searchResults;
 searchPage = 1;
@@ -68,15 +97,16 @@ searchMore() {
 }
 
   toList(result) {
-    debugger;
     result.favorite = !result.favorite;
     if (result.favorite === true) {
         this.favCount = 1;
-        debugger;
-        this.list.push(result);
+        const movie = new ListComponent (result.Title, result.Year, result.Poster);
+        this.list.addMovie(movie);
         console.log(this.list);
     } else {
       this.favCount = -1;
+      this.list.deleteMovie(result.Title);
+      console.log(this.list);
     }
     this.counterService.sendFavCount( this.favCount );
   }
