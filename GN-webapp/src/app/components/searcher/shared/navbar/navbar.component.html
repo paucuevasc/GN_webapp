@@ -1,5 +1,5 @@
 <nav id="navbar-container">
-    <a id="navbar-brand" href="#">
+    <a id="navbar-brand" (click)="saveList()">
         <img src="assets/img/gesture-tap.png" width="30" height="30" alt="">
     </a>
 
@@ -18,6 +18,8 @@
         <p id="counter">
             {{this.favCounter}}
         </p>
+    </div>
+    <div id="save-container">
     </div>
 
 </nav>

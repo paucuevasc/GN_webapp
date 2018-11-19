@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ItunesService } from './itunes.service';
+import { VoteListService } from './voteList.service';
 
-describe('ItunesService', () => {
+describe('CounterService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ItunesService = TestBed.get(ItunesService);
+    const service: VoteListService = TestBed.get(VoteListService);
     expect(service).toBeTruthy();
   });
 });

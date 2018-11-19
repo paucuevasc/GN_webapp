@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OmdbService } from '../../shared/omdb.service';
-import { DisplayService } from '../../shared/display.service';
-import { CounterService } from '../../shared/counter.service';
-import { ListService } from '../../shared/list.service';
+import { OmdbService } from '../../../services/searchServices/omdb.service';
+import { DisplayService } from '../../../services/searchServices/display.service';
+import { ListService } from '../../../services/searchServices/list.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ListItem, List, Result } from '../shared/models';
 
@@ -36,7 +35,6 @@ searchMoreOption = false;
 displayMode;
 
   constructor(private omdbService: OmdbService,
-              private counterService: CounterService,
               private displayService: DisplayService,
               private listService: ListService) {
                 this.displaySubscription =
@@ -46,6 +44,7 @@ displayMode;
                }
 
 displaySubs(message) {
+  // this.list.movies = message[0];
   this.selectionMade = message[1];
   this.displayMode = message[4];
   this.searchMoreOption = message[3];
@@ -53,7 +52,7 @@ displaySubs(message) {
     this.displaySearch(message);
   }
   if (this.displayMode === 'listWiev') {
-    this.displayList();
+    this.displayList(message);
 }
 }
 searchMore() {
@@ -74,21 +73,19 @@ searchMore() {
   toList(result) {
     result.inList = !result.inList;
     if (result.inList === true) {
-        this.favCount = 1;
         const movie = new ListItem (result.Title, result.Year, result.Poster, result.imdbID);
         this.list.addMovie(movie);
         console.log(this.list);
         this.listService.sendList(this.list);
     } else {
-      this.favCount = -1;
       this.list.deleteMovie(result.Title);
       console.log(this.list);
       this.listService.sendList(this.list);
     }
-    this.counterService.sendFavCount( this.favCount );
   }
 
   displaySearch(message) {
+    debugger;
     if (this.selectionMade === false ) {
       this.results = message[0];
     console.log( this.results );
@@ -107,8 +104,10 @@ searchMore() {
   }
 }
   }
-  displayList() {
+  displayList(message) {
+    debugger;
     this.results = [];
+    this.list.movies = message[0];
     for (let i = 0; i < this.list.movies.length; i++) {
       const result = new Result(this.list.movies[i].poster, this.list.movies[i].title, '', this.list.movies[i].year, '', true);
       this.results.push(result);
