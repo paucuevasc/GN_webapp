@@ -38,7 +38,6 @@ displayMode;
                 // this.counterService.getFavCounter().subscribe((favCounter) => {
                   // this.favCounter = favCounter;
              // });
-             debugger;
       this.listSubscription =
                this.listService.getList().subscribe((list) => {
                this.list = list;
@@ -46,9 +45,10 @@ displayMode;
               });
 
               if ( this.list.movies.length <= 0 ) {
-                debugger;
                 this.list = this.voteListService.getList();
-                this.favCounter = this.list.movies.length;
+                if ( this.list.movies === undefined ) {
+                  this.favCounter = 0;
+                } else {  this.favCounter = this.list.movies.length; }
                 // this.selectionMade = true;
                 // this.viewList();
               }
@@ -75,7 +75,6 @@ displayMode;
     this.displayService.sendMessage( message );
   }
 viewList() {
-  debugger;
   this.displayMode = 'listWiev';
   const message = [this.list.movies, this.selectionMade, '', false, this.displayMode];
   console.log( message );

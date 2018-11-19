@@ -32,8 +32,14 @@ ngOnInit () {
     console.log(this.list);
 
 }
+newList() {
+  delete this.list.movies;
+  this.voteListService.sendList(this.list);
+
+  this.router.navigate( ['/search-home']);
+}
+
 modList() {
-debugger;
   this.voteListService.sendList(this.list);
 
   this.router.navigate( ['/search-home']);

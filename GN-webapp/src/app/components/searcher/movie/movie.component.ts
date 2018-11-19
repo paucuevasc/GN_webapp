@@ -85,7 +85,6 @@ searchMore() {
   }
 
   displaySearch(message) {
-    debugger;
     if (this.selectionMade === false ) {
       this.results = message[0];
     console.log( this.results );
@@ -105,9 +104,12 @@ searchMore() {
 }
   }
   displayList(message) {
-    debugger;
     this.results = [];
-    this.list.movies = message[0];
+      this.list.movies = message[0];
+      if ( this.list.movies === undefined) {
+        this.list.movies = [];
+      }
+
     for (let i = 0; i < this.list.movies.length; i++) {
       const result = new Result(this.list.movies[i].poster, this.list.movies[i].title, '', this.list.movies[i].year, '', true);
       this.results.push(result);
