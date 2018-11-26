@@ -1,10 +1,24 @@
+@font-face {
+    font-family: york-whiteletter;
+    src: url(../../../../../assets/fonts/YorkWhiteletter/yorkwhiteletter.ttf) format("opentype");
+}
+
 #navbar-container {
-    background-color: #137d83;
+    background-color: #FF6633;
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: stretch;
+    height: 70px;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+#navbar-logo {
+    font-family: 'york-whiteletter', 'arial';
+    font-size: 2em;
+    color: #900C3F;
+    margin-top: -20px;
 }
 
 #navbar-brand {
@@ -16,11 +30,40 @@
     flex: 0 0 150px;
 }
 
+#save-button {
+    background-image: url(/assets/img/icons8-save-as-50.png);
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#save-button:hover {
+    background-image: url(/assets/img/icons8-save-as-50-hover.png);
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+}
+
 #counter-container {
-    background-image: url(/assets/img/fav_counter_backg.png);
-    width: 45px;
-    height: 45px;
-    flex: 0 0 45px;
+    background-image: url(/assets/img/icons8-bulleted-list-50.png);
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#counter {
+    vertical-align: bottom;
+}
+
+#counter-container:hover {
+    background-image: url(/assets/img/icons8-bulleted-list-50-hover.png);
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
 }
 
 #counter {
@@ -40,7 +83,8 @@
 
 #searchbox-container {
     height: 100%;
-    width: 30%;
+    width: 100%;
+    margin-top: 5px;
 }
 
 #searchbox {

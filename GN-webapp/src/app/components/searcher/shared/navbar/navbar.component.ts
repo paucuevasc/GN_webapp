@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { ListService } from '../../../../services/searchServices/list.service';
 import { ListItem, List } from '../../shared/models';
 import { Router } from '@angular/router';
+import { GnapiService } from '../../../../services/searchServices/gnapi.service';
+
 
 
 
@@ -33,6 +35,7 @@ displayMode;
     private displayService: DisplayService,
     private voteListService: VoteListService,
     private listService: ListService,
+    private gnapiService: GnapiService,
     private router: Router ) {
       // this.subscription =
                 // this.counterService.getFavCounter().subscribe((favCounter) => {
@@ -84,6 +87,8 @@ viewList() {
 saveList() {
   this.voteListService.sendList(this.list);
   this.router.navigate( ['/vote']);
+  console.log(this.list);
+  this.gnapiService.addList(this.list);
 }
 ngOnInit () {
   // if (!this.list) { this.list = new List([]); }

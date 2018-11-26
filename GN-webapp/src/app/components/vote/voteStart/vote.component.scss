@@ -1,0 +1,15 @@
+@font-face {
+    font-family: york-whiteletter;
+    src: url(../../../../assets/fonts/YorkWhiteletter/yorkwhiteletter.ttf) format("opentype");
+}
+
+#header {
+    display: block;
+    height: 50%;
+}
+
+#vote-title {
+    font-family: 'york-whiteletter', 'arial';
+    font-size: 15em;
+    color: #900C3F;
+}

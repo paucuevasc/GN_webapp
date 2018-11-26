@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { SearchHomeComponent } from './components/searcher/searchHome/searchHome.component';
-import { VoteComponent } from './components/vote/vote.component';
+import { VoteComponent } from './components/vote/voteStart/vote.component';
 
 
 const APP_ROUTES: Routes = [

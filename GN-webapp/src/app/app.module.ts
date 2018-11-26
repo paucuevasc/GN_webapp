@@ -9,7 +9,10 @@ import { SearchHomeComponent } from './components/searcher/searchHome/searchHome
 import { OmdbService } from './services/searchServices/omdb.service';
 import { MovieComponent } from './components/searcher/movie/movie.component';
 import { HttpClient } from 'selenium-webdriver/http';
-import { VoteComponent } from './components/vote/vote.component';
+import { VoteComponent } from './components/vote/voteStart/vote.component';
+import { VoteRoundsComponent } from './components/vote/voteRounds/voteRounds.component';
+import { GnapiService } from './services/searchServices/gnapi.service';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import { VoteComponent } from './components/vote/vote.component';
     NavbarComponent,
     SearchHomeComponent,
     MovieComponent,
-    VoteComponent
+    VoteComponent,
+    VoteRoundsComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,7 @@ import { VoteComponent } from './components/vote/vote.component';
     APP_ROUTING
 
   ],
-  providers: [OmdbService, NavbarComponent, VoteComponent],
+  providers: [OmdbService, NavbarComponent, VoteComponent, GnapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
