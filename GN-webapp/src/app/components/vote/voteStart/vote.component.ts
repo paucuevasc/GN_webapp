@@ -59,6 +59,8 @@ voteStart() {
 listSelection(listSelection) {
   console.log(listSelection);
   if (listSelection === 'new') {
+    this.list.listID = '1';
+    this.list.TypeList = 'temp';
     this.newList();
   } if (listSelection === 'Barcelona') {
     console.log('Grillos de barna gogogo');

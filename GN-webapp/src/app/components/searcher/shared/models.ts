@@ -29,6 +29,8 @@ export class ListItem {
     }}
 
   export class List {
+    listID: string;
+    TypeList: string;
     movies: Array<ListItem>;
     addMovie(movie) {
       this.movies.push(movie);

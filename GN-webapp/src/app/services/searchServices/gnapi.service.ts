@@ -26,7 +26,7 @@ const httpOptions = {
 export class GnapiService {
 
   sendList = new List([]);
-
+  transformList;
 private  apiURL = 'http://localhost:3000/List';
 
   constructor(private http: HttpClient) { }
@@ -38,13 +38,30 @@ private  apiURL = 'http://localhost:3000/List';
 
 
 
+  dataSendConverter (list: List) {
+  debugger;
+   this.transformList = '{ "listID":' + JSON.stringify(list.listID) + ',';
+   this.transformList = this.transformList + '"TypeList": ' + JSON.stringify(list.TypeList) + ',';
+   this.transformList = this.transformList + '"Movies": [';
+   for (let i = 0; i < list.movies.length; i++) {
+     if (i < list.movies.length - 1) {
+    this.transformList = this.transformList + JSON.stringify(list.movies[i]) + ',';
+  } else {
+    this.transformList = this.transformList + JSON.stringify(list.movies[i]);
+  }}
 
+  this.transformList = this.transformList + ']}';
+   console.log(this.transformList);
+
+  }
 
   addList (list: List) {
 
     this.sendList.movies = list.movies;
-    debugger;
-      return this.http.post(this.apiURL, this.sendList.movies, httpOptions)
+    this.sendList.listID = '1';
+    this.sendList.TypeList = 'temp';
+    this.dataSendConverter(this.sendList);
+      return this.http.post(this.apiURL, this.transformList, httpOptions)
       .subscribe(res => {
         console.log(res);
       },
