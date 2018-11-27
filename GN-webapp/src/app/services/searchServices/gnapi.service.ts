@@ -12,6 +12,11 @@ import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { List, ListItem } from '../../components/searcher/shared/models';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
 
 
 
@@ -26,20 +31,19 @@ const httpOptions = {
 export class GnapiService {
 
   sendList = new List([]);
+  findList = new List([]);
   transformList;
-private  apiURL = 'http://localhost:3000/List';
+  searchID;
+private  apiURL = 'http://localhost:3000/list';
 
   constructor(private http: HttpClient) { }
 
-  public getList(): Observable<List[]> {
-    return this.http.get<List[]>(this.apiURL );
-  }
+
 
 
 
 
   dataSendConverter (list: List) {
-  debugger;
    this.transformList = '{ "listID":' + JSON.stringify(list.listID) + ',';
    this.transformList = this.transformList + '"TypeList": ' + JSON.stringify(list.TypeList) + ',';
    this.transformList = this.transformList + '"Movies": [';
@@ -69,5 +73,25 @@ private  apiURL = 'http://localhost:3000/List';
         console.log('ERROR');
       });
   }
+
+  public getList(findList): Promise<any> {
+console.log(this.apiURL + '/' + findList);
+    if (findList === 'Barcelona') {
+      this.searchID = '5bfd1164d21f6f466b7e6e94';
+    } if (findList === 'Donosti') {
+      this.searchID = '5bf7cb0cad54d822eef256bb';
+    }
+    return this.http.get(this.apiURL + '/' + this.searchID)
+    .toPromise().then((data: any) =>  {
+      return data;
+     }).catch(this.handleError);
+
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.log(error);
+    return Promise.reject(error.message || error);
+  }
+
 
 }

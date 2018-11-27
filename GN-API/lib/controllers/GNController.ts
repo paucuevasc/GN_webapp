@@ -26,7 +26,7 @@ export class MovieListController{
         })
     }
     public getListWithID (req: Request, res: Response) {           
-        MovieList.findById(req.params.ListId, (err, movieList) => {
+        MovieList.findById(req.params.TypeList, (err, movieList) => {
             if(err){
                 res.send(err);
             }

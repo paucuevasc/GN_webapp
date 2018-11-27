@@ -5,6 +5,9 @@ import { ListItem, List } from '../../searcher/shared/models';
 import { Subscription } from 'rxjs/Subscription';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { element } from 'protractor';
+import { GnapiService } from '../../../services/searchServices/gnapi.service';
+import { debounceTime } from 'rxjs/operators';
+import { VoterNumService } from '../../../services/voteServices/voterNum.service';
 
 
 
@@ -21,7 +24,9 @@ export class VoteComponent implements OnInit {
   voteStarter = 0;
 
   constructor(private router: Router,
-              private voteListService: VoteListService ) {
+              private voteListService: VoteListService,
+              private gnapiService: GnapiService,
+              private voterNumService: VoterNumService ) {
                   // this.listSubscription =
                      //       this.listService.getList().subscribe((list) => {
                        //       debugger;
@@ -55,6 +60,7 @@ modList() {
 voteStart() {
   this.voteStarter = 1;
   this.voteListService.sendList(this.list);
+  this.voterNumService.sendVoters(this.participantsNum);
 }
 listSelection(listSelection) {
   console.log(listSelection);
@@ -64,9 +70,30 @@ listSelection(listSelection) {
     this.newList();
   } if (listSelection === 'Barcelona') {
     console.log('Grillos de barna gogogo');
+    this.gnapiService.getList(listSelection).then(data => {
+      this.dataDecoder(data);
+        });
+
+
   } if (listSelection === 'Donosti') {
     console.log('Grillos de Donosti siempre acaban a hostis');
+    this.gnapiService.getList(listSelection).then(data => {
+      this.dataDecoder(data);
+        });
   }
 
+}
+
+dataDecoder(data) {
+  console.log(data);
+  console.log(data.Movies);
+  this.list.TypeList = data.TypeList;
+  this.list.listID = data._id;
+  for (let i = 0; i < data.Movies.length; i++) {
+    // debugger;
+    const movie = new ListItem(data.Movies[i].title, data.Movies[i].year, data.Movies[i].poster, data.Movies[i].imdbID);
+    this.list.addMovie(movie);
+  }
+  console.log(this.list);
 }
 }

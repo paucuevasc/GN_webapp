@@ -28,13 +28,14 @@ export class Routes {
 
         //Movie
 
-        app.route('/List')
+        app.route('/list')
         .get(this.movieListController.getMovieList)
         // POST enpoint
-       .post(this.movieListController.addNewMovieList);
+       .post(this.movieListController.addNewMovieList)
+       .delete(this.movieListController.deleteMovieList);
        
         // Movie detail
-        app.route('/List/:ListId')
+        app.route('/list/:TypeList')
         // get specific movie
         .get(this.movieListController.getListWithID) 
         .put(this.movieListController.updateMovieList)
