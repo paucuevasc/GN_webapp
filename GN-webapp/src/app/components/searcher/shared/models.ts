@@ -1,3 +1,5 @@
+
+  // Class of a movie result of a search.
 export class Result {
   Poster: string;
   Title: string;
@@ -16,6 +18,7 @@ export class Result {
   }
 }
 
+  // Class for a movie that belongs in a list.
 export class ListItem {
     title: string;
     year: string;
@@ -28,6 +31,7 @@ export class ListItem {
       this.imdbID = imdbID;
     }}
 
+  // Class for the different list.
   export class List {
     listID: string;
     TypeList: string;
@@ -44,5 +48,42 @@ export class ListItem {
     }
     constructor (movies: Array<ListItem>) {
       this.movies = [];
+    }
+  }
+
+  // Vote class with the votes of the first and second round.
+  export class Votes {
+    fRoundVotes: number;
+    sRoundVotes: number;
+    constructor (fRoundVotes: number, sRoundVotes: number) {
+      this.fRoundVotes = fRoundVotes;
+      this.sRoundVotes = sRoundVotes;
+    }
+  }
+
+  // Voter class.
+  export class Voter {
+    voterID: string;
+    voterState: boolean;
+    votes: Votes;
+    vote(round) {
+
+    }
+    constructor (voterID: string, voterState: boolean, votes: Votes ) {
+      this.voterID = voterID;
+      this.voterState = voterState;
+      this.votes = votes;
+    }
+  }
+
+  // Voters List class.
+  export class VotersList {
+    voters: Array<Voter>;
+    addVoter(voter) {
+      this.voters.push(voter);
+    }
+
+    constructor (voters: Array<Voter>) {
+      this.voters = [];
     }
   }

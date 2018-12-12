@@ -37,10 +37,6 @@ displayMode;
     private listService: ListService,
     private gnapiService: GnapiService,
     private router: Router ) {
-      // this.subscription =
-                // this.counterService.getFavCounter().subscribe((favCounter) => {
-                  // this.favCounter = favCounter;
-             // });
       this.listSubscription =
                this.listService.getList().subscribe((list) => {
                this.list = list;
@@ -52,15 +48,13 @@ displayMode;
                 if ( this.list.movies === undefined ) {
                   this.favCounter = 0;
                 } else {  this.favCounter = this.list.movies.length; }
-                // this.selectionMade = true;
-                // this.viewList();
               }
    }
 
 
   searchResults = [];
 
-
+  // Make a search.
   search(searchPage, searchWord) {
     this.searchWord = searchWord;
     this.selectionMade = false;
@@ -70,6 +64,8 @@ displayMode;
       this.showResults();
     });
   }
+
+  // Send the result of a search in order to display.
   showResults() {
     this.searchMoreOption = true;
     this.displayMode = 'searchWiev';
@@ -77,6 +73,8 @@ displayMode;
     console.log( message );
     this.displayService.sendMessage( message );
   }
+
+  // Send the current list in order to display.
 viewList() {
   this.displayMode = 'listWiev';
   const message = [this.list.movies, this.selectionMade, '', false, this.displayMode];
@@ -84,6 +82,8 @@ viewList() {
   this.displayService.sendMessage( message );
 
 }
+
+  // Update the current list.
 saveList() {
   this.voteListService.sendList(this.list);
   this.router.navigate( ['/vote']);
@@ -91,12 +91,7 @@ saveList() {
   this.gnapiService.addList(this.list);
 }
 ngOnInit () {
-  // if (!this.list) { this.list = new List([]); }
-  // debugger;
- // this.list = this.voteListService.getList();
-  // this.favCounter = this.list.movies.length;
 
-   // console.log(this.list);
 
 }
 

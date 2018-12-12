@@ -43,8 +43,8 @@ displayMode;
                 });
                }
 
+  // Sets the display mode.
 displaySubs(message) {
-  // this.list.movies = message[0];
   this.selectionMade = message[1];
   this.displayMode = message[4];
   this.searchMoreOption = message[3];
@@ -55,6 +55,8 @@ displaySubs(message) {
     this.displayList(message);
 }
 }
+
+  // Make a new search and add the results after the old ones.
 searchMore() {
 
   this.searchPage++;
@@ -70,6 +72,7 @@ searchMore() {
   });
 }
 
+  // Add a movie to the list.
   toList(result) {
     result.inList = !result.inList;
     if (result.inList === true) {
@@ -84,6 +87,7 @@ searchMore() {
     }
   }
 
+  // Display the result of a search.
   displaySearch(message) {
     if (this.selectionMade === false ) {
       this.results = message[0];
@@ -103,6 +107,8 @@ searchMore() {
   }
 }
   }
+
+  // Display a list.
   displayList(message) {
     this.results = [];
       this.list.movies = message[0];

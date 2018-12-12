@@ -34,16 +34,18 @@ export class VoteComponent implements OnInit {
                            // });
 }
 ngOnInit () {
-  // if (!this.list) { this.list = new List([]); }
-
   this.list = this.voteListService.getList();
 
     console.log(this.list);
 
 }
+
+// Set the selected amount of voters.
 participantsCounter(participants) {
   this.participantsNum = participants;
 }
+
+// Call the movie search engine.
 newList() {
 
   delete this.list.movies;
@@ -52,16 +54,21 @@ newList() {
   this.router.navigate( ['/search-home']);
 }
 
+// Send the current selected list tho the movie search engine in order to make mods.
 modList() {
   this.voteListService.sendList(this.list);
 
   this.router.navigate( ['/search-home']);
 }
+
+// Start the vote whith the current list and voters.
 voteStart() {
   this.voteStarter = 1;
   this.voteListService.sendList(this.list);
   this.voterNumService.sendVoters(this.participantsNum);
 }
+
+// Select an official list or create a new one.
 listSelection(listSelection) {
   console.log(listSelection);
   if (listSelection === 'new') {
@@ -73,8 +80,6 @@ listSelection(listSelection) {
     this.gnapiService.getList(listSelection).then(data => {
       this.dataDecoder(data);
         });
-
-
   } if (listSelection === 'Donosti') {
     console.log('Grillos de Donosti siempre acaban a hostis');
     this.gnapiService.getList(listSelection).then(data => {
@@ -84,6 +89,7 @@ listSelection(listSelection) {
 
 }
 
+// Translate the info of the list from the API.
 dataDecoder(data) {
   console.log(data);
   console.log(data.Movies);

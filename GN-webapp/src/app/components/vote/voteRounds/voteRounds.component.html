@@ -1,10 +1,30 @@
-<div id="current">
-    <div class="img-container">
-        <div *ngFor='let movie of this.list.movies' class="movie">
-            <p>{{movie.title}}</p>
+<div id="wrapper">
+    <div *ngIf="round == 1">
+        <h1>RONDA 1</h1>
+    </div>
+    <div *ngIf="round == 2">
+        <h1>RONDA 2</h1>
+    </div>
+    <div *ngIf="round == 3">
+        <h1>VETO SECRETO</h1>
+    </div>
+    <div id="list-container">
+        <div *ngFor='let movie of this.currentList.movies' class="movie">
+            <div *ngIf="movie.imdbID == currentMovie.imdbID" (click)="vetoRound(movie)">
+                <p id="selected">{{movie.title}}</p>
+            </div>
+            <div *ngIf="movie.imdbID !== currentMovie.imdbID" (click)="vetoRound(movie)">
+                <p>{{movie.title}}</p>
+            </div>
         </div>
+    </div>
+    <div id=current-movie-container>
         <img *ngIf="this.currentMovie.poster != 'N/A'" class="album-art" src="{{ this.currentMovie.poster }}">
         <img *ngIf="this.currentMovie.poster == 'N/A'" class="album-art" src=" assets/img/notFound.png ">
+        <input type="text" value="votes" #voteBox (click)="voteBox.value = ''">
+        <button type="button" (click)="countVotes(voteBox.value)" (click)="voteBox.value = 'votes'">submit</button>
+        <p>{{this.currentMovie.nVotes }}</p>
         <button type="button" (click)="prevMovie()">PREV</button>
         <button type="button" (click)="nextMovie()">NEXT</button>
     </div>
+</div>
