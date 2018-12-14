@@ -1,38 +1,34 @@
-<div id="header">
-    <h1 id="vote-title">ÒvoteËdieóóÓ</h1>
-</div>
+<div *ngIf="voteStarter !== 1">
+    <div id="header">
+        <h1 id="vote-title">ÒvoteËdieóóÓ</h1>
+    </div>
 
-<div id=voteForm>
+    <div id=voteForm>
 
-    <h2>NUM. PARTICIPANTES:
-        <input type="number" name="quantity" min="0" max="27" #rangeInput value="{{ this.participantsNum }}" (input)=" this.participantsCounter(rangeInput.value) "></h2>
-
-
-    <h2>LISTA</h2>
-    <p class="nav-item">
-        <a class="nav-link" (click)="newList()">Crear Nueva Lista </a>
-    </p>
-    <p class="nav-item ">
-        <a class="nav-link " (click)="modList() ">Modificar Lista </a>
-
-    </p>
-
-</div>
+        <h2>NUM. PARTICIPANTES:
+            <input type="number" name="quantity" min="0" max="27" #rangeInput value="{{ this.participantsNum }}" (input)=" this.participantsCounter(rangeInput.value) "></h2>
 
 
-<div class="input-group">
-    <select class="custom-select" #selectList id="inputGroupSelect04" aria-label="Example select with button addon" (change)="listSelection(selectList.value)">
+        <h2>LISTA</h2>
+
+
+    </div>
+
+
+    <div class="input-group">
+        <select class="custom-select" #selectList id="inputGroupSelect04" aria-label="Example select with button addon" (change)="listSelection(selectList.value)">
           <option selected >Selecciona una lista</option>
           <option value="Donosti" >Lista Donosti</option>
           <option value="Barcelona" >Lista Barcelona</option>
           <option value="new" >Crear Nueva Lista </option>
         </select>
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" (click)="modList() ">Modificar lista</button>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="modList() ">Modificar lista</button>
+        </div>
     </div>
-</div>
 
-<div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="button" (click)="voteStart() ">GO!</button>
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="voteStart() ">GO!</button>
+    </div>
 </div>
 <app-vote-rounds *ngIf="voteStarter == 1"></app-vote-rounds>

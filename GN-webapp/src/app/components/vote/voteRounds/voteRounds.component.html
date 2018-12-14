@@ -7,6 +7,7 @@
     </div>
     <div *ngIf="round == 3">
         <h1>VETO SECRETO</h1>
+        <button type="button" (click)="setNextRound()">END VETO</button>
     </div>
     <div id="list-container">
         <div *ngFor='let movie of this.currentList.movies' class="movie">

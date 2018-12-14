@@ -12,6 +12,7 @@ import { HttpClient } from 'selenium-webdriver/http';
 import { VoteComponent } from './components/vote/voteStart/vote.component';
 import { VoteRoundsComponent } from './components/vote/voteRounds/voteRounds.component';
 import { GnapiService } from './services/searchServices/gnapi.service';
+import { ModalsComponent } from './components/directives/modals/modals.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { GnapiService } from './services/searchServices/gnapi.service';
     SearchHomeComponent,
     MovieComponent,
     VoteComponent,
-    VoteRoundsComponent
+    VoteRoundsComponent,
+    ModalsComponent
   ],
   imports: [
     BrowserModule,
